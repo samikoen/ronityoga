@@ -1,0 +1,5 @@
+# PHP dosyalarını engelle
+<FilesMatch "\.(php|php3|php4|php5|phtml|pl|py|rb|sh|cgi)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
