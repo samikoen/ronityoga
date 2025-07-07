@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ronit Yoga Studio</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <img id="siteLogo" src="" alt="" style="display: none;">
+                <span id="siteTitle">RONIT YOGA</span>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="closeMenu()">Ana Sayfa</a></li>
+                <li><a href="#about" onclick="closeMenu()">Hakkımda</a></li>
+                <li><a href="#classes" onclick="closeMenu()">Dersler</a></li>
+                <li><a href="#gallery" onclick="closeMenu()">Galeri</a></li>
+                <li><a href="#contact" onclick="closeMenu()">İletişim</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>İç Huzurunuzu Keşfedin</h1>
+            <p>Beden, zihin ve ruhun uyumlu dansı</p>
+            <a href="#classes" class="cta-button">Dersleri Keşfet</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <div class="about-content">
+                <h2 id="about-title">Merhaba, Ben Ronit</h2>
+                <div id="about-text">
+                    <p>11 yıllık yoga deneyimimle, binlerce öğrenciye kendilerini keşfetme yolculuğunda rehberlik ettim. Yoga benim için sadece fiziksel bir pratik değil, aynı zamanda ruhsal bir yolculuk.</p>
+                    <p>Hindistan'da aldığım 300 saatlik yoga eğitimi ve çeşitli uzmanlık sertifikalarımla, size özgün ve dönüştürücü bir deneyim sunuyorum.</p>
+                    <p>Her ders, bedeninizi güçlendirirken zihninizi sakinleştirmek için özenle tasarlanmıştır.</p>
+                </div>
+            </div>
+            <div class="about-image" id="profileImageContainer">
+                <!-- Profil resmi buraya yüklenecek, yoksa gradient arka plan kalacak -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Section -->
+    <section id="classes" class="classes">
+        <div class="classes-container">
+            <h2>Derslerimiz</h2>
+            <div id="classesGrid" class="classes-grid">
+                <!-- Dersler buraya yüklenecek -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <h2>Galeri</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"></div>
+            <div class="gallery-item"></div>
+            <div class="gallery-item"></div>
+            <div class="gallery-item"></div>
+            <div class="gallery-item"></div>
+            <div class="gallery-item"></div>
+            <div class="gallery-item"></div>
+            <div class="gallery-item"></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <h2>İletişime Geçin</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Adınız" required>
+                    <input type="email" placeholder="E-posta" required>
+                </div>
+                <textarea placeholder="Mesajınız" required></textarea>
+                <button type="submit" class="submit-button">Gönder</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#" id="instagram-link" class="instagram">
+                <img src="uploads/social/instagram.png" alt="Instagram" onerror="this.outerHTML='📷'">
+            </a>
+            <a href="#" id="facebook-link" class="facebook">
+                <img src="uploads/social/facebook.png" alt="Facebook" onerror="this.outerHTML='📘'">
+            </a>
+            <a href="#" id="twitter-link" class="twitter">
+                <img src="uploads/social/twitter.png" alt="Twitter" onerror="this.outerHTML='🐦'">
+            </a>
+            <a href="#" id="youtube-link" class="youtube">
+                <img src="uploads/social/youtube.png" alt="YouTube" onerror="this.outerHTML='▶️'">
+            </a>
+        </div>
+        <p>&copy; 2025 Ronit Yoga. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Site ayarlarını yükle - DÜZELTİLMİŞ VERSİYON
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Logo'yu yükle
+                const logoResponse = await fetch('api/settings.php?key=site_logo');
+                const logoData = await logoResponse.json();
+                
+                if (logoData && logoData.setting_value) {
+                    const logoImg = document.getElementById('siteLogo');
+                    if (logoImg) {
+                        logoImg.src = logoData.setting_value;
+                        logoImg.style.display = 'block';
+                    }
+                }
+
+                // Hero image'i yükle
+                const heroResponse = await fetch('api/settings.php?key=hero_image');
+                const heroData = await heroResponse.json();
+                
+                if (heroData && heroData.setting_value) {
+                    const heroSection = document.querySelector('.hero');
+                    if (heroSection) {
+                        heroSection.style.backgroundImage = `url('${heroData.setting_value}')`;
+                        heroSection.style.backgroundSize = 'cover';
+                        heroSection.style.backgroundPosition = 'center';
+                        heroSection.style.backgroundRepeat = 'no-repeat';
+                    }
+                }
+
+                // Site ayarlarını yükle
+                const settingsResponse = await fetch('api/settings.php');
+                const settings = await settingsResponse.json();
+                
+                if (settings) {
+                    // Site başlığını güncelle
+                    if (settings.site_title) {
+                        document.title = settings.site_title;
+                        
+                        // Site başlığını güncelle
+                        const siteTitle = document.getElementById('siteTitle');
+                        if (siteTitle) {
+                            siteTitle.textContent = settings.site_title;
+                        }
+                    }
+
+                    // Hakkımda bölümünü güncelle
+                    if (settings.name) {
+                        const aboutTitle = document.getElementById('about-title');
+                        if (aboutTitle) aboutTitle.textContent = `Merhaba, Ben ${settings.name}`;
+                    }
+
+                    if (settings.about) {
+                        const aboutText = document.getElementById('about-text');
+                        if (aboutText) aboutText.innerHTML = `<p>${settings.about.replace(/\n/g, '</p><p>')}</p>`;
+                    }
+
+                    // Sosyal medya linklerini güncelle
+                    if (settings.instagram) {
+                        const instagramLink = document.getElementById('instagram-link');
+                        if (instagramLink) instagramLink.href = settings.instagram;
+                    }
+
+                    if (settings.facebook) {
+                        const facebookLink = document.getElementById('facebook-link');
+                        if (facebookLink) facebookLink.href = settings.facebook;
+                    }
+
+                    if (settings.youtube) {
+                        const youtubeLink = document.getElementById('youtube-link');
+                        if (youtubeLink) youtubeLink.href = settings.youtube;
+                    }
+                }
+
+            } catch (error) {
+                console.error('Ayarlar yüklenemedi:', error);
+            }
+        });
+    </script>
+</body>
+</html>
