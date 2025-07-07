@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga Studio - Yönetim Paneli</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">YOGA STUDIO</div>
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        📊 Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#classes" class="nav-link" data-section="classes">
+                        🧘‍♀️ Dersler
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#schedule" class="nav-link" data-section="schedule">
+                        📅 Program
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#reservations" class="nav-link" data-section="reservations">
+                        📝 Rezervasyonlar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#gallery" class="nav-link" data-section="gallery">
+                        🖼️ Galeri
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#videos" class="nav-link" data-section="videos">
+                        🎥 Videolar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#blog" class="nav-link" data-section="blog">
+                        ✍️ Blog
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#settings" class="nav-link" data-section="settings">
+                        ⚙️ Ayarlar
+                    </a>
+                </li>
+				<li class="nav-item" style="margin-top: auto;">
+    <a href="#" class="nav-link" onclick="logout()">
+        🚪 Çıkış
+    </a>
+</li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard -->
+        <section id="dashboard" class="content-section active">
+            <div class="page-header">
+                <h1 class="page-title">Dashboard</h1>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-value">156</div>
+                    <div class="stat-label">Toplam Öğrenci</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">Bu Haftaki Dersler</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">18</div>
+                    <div class="stat-label">Bekleyen Rezervasyon</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">92%</div>
+                    <div class="stat-label">Doluluk Oranı</div>
+                </div>
+            </div>
+
+            <div class="data-table-wrapper">
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Yaklaşan Dersler</th>
+                                <th>Tarih</th>
+                                <th class="hide-mobile">Saat</th>
+                                <th class="hide-mobile">Katılımcı</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Hatha Yoga</td>
+                                <td>18 Haziran 2024</td>
+                                <td class="hide-mobile">09:00</td>
+                                <td class="hide-mobile">12/15</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                            </tr>
+                            <tr>
+                                <td>Vinyasa Flow</td>
+                                <td>18 Haziran 2024</td>
+                                <td class="hide-mobile">18:00</td>
+                                <td class="hide-mobile">15/15</td>
+                                <td><span class="status-badge status-pending">Dolu</span></td>
+                            </tr>
+                            <tr>
+                                <td>Yin Yoga</td>
+                                <td>20 Haziran 2024</td>
+                                <td class="hide-mobile">19:30</td>
+                                <td class="hide-mobile">8/15</td>
+                                <td><span class="status-badge status-active">Aktif</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+       <!-- Classes -->
+<section id="classes" class="content-section">
+   <div class="page-header">
+       <h1 class="page-title">Ders Yönetimi</h1>
+       <button class="btn" onclick="showModal('classModal')">+ Yeni Ders Ekle</button>
+   </div>
+   
+   <div class="content-form">
+       <h3>Mevcut Dersler</h3>
+       <div class="data-table-wrapper">
+           <div class="data-table">
+               <table>
+                   <thead>
+                       <tr>
+                           <th>Ders Adı</th>
+                           <th class="hide-mobile">Seviye</th>
+                           <th class="hide-mobile">Süre</th>
+                           <th class="hide-mobile">Kapasite</th>
+                           <th>İşlemler</th>
+                       </tr>
+                   </thead>
+                   <tbody id="classesTableBody">
+                       <tr>
+                           <td>Hatha Yoga</td>
+                           <td class="hide-mobile">Başlangıç</td>
+                           <td class="hide-mobile">60 dakika</td>
+                           <td class="hide-mobile">15 kişi</td>
+                           <td>
+                               <div class="action-buttons">
+                                   <button class="btn btn-secondary btn-sm">Düzenle</button>
+                                   <button class="btn btn-danger btn-sm">Sil</button>
+                               </div>
+                           </td>
+                       </tr>
+                   </tbody>
+               </table>
+           </div>
+       </div>
+       
+      
+   </div>
+</section>
+
+<script>
+
+
+// Ders silme fonksiyonu
+async function deleteClass(id) {
+    if (confirm('Bu dersi silmek istediğinize emin misiniz?')) {
+        try {
+            console.log('Siliniyor, ID:', id);
+            
+            const response = await fetch('../api/delete-ders.php?id=' + id);
+            const data = await response.json();
+            
+            console.log('Silme yanıtı:', data);
+            
+            if (data.success) {
+                alert('Ders başarıyla silindi!');
+                location.reload();
+            } else {
+                alert('Hata: ' + (data.error || 'Ders silinemedi'));
+            }
+        } catch (error) {
+            console.error('Delete error:', error);
+            alert('Silme işlemi sırasında hata oluştu!');
+        }
+    }
+}
+
+// Ders düzenleme fonksiyonu
+async function editClass(id) {
+    alert('Düzenleme özelliği yakında eklenecek. Ders ID: ' + id);
+}
+
+// Dersleri yükle
+async function loadClassesList() {
+    try {
+        const response = await fetch('../api/classes.php');
+        const classes = await response.json();
+        
+        console.log('Gelen dersler:', classes);
+        
+        if (Array.isArray(classes)) {
+            const tbody = document.getElementById('classesTableBody');
+            if (tbody) {
+                tbody.innerHTML = classes.map(cls => `
+                    <tr>
+                        <td>${cls.name}</td>
+                        <td class="hide-mobile">${cls.level}</td>
+                        <td class="hide-mobile">${cls.duration} dakika</td>
+                        <td class="hide-mobile">${cls.capacity} kişi</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-secondary btn-sm" onclick="editClass(${cls.id})">Düzenle</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteClass(${cls.id})">Sil</button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+    } catch (error) {
+        console.error('Load classes error:', error);
+    }
+}
+
+// Sayfa yüklendiğinde dersleri getir
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('classesTableBody')) {
+        loadClassesList();
+    }
+});
+
+// Ders düzenleme fonksiyonu
+async function editClass(id) {
+    alert('Düzenleme özelliği yakında eklenecek. Ders ID: ' + id);
+}
+
+// Dersleri yükle
+async function loadClassesList() {
+    try {
+        const response = await fetch('../api/classes.php');
+        const classes = await response.json();
+        
+        console.log('Gelen dersler:', classes);
+        
+        if (Array.isArray(classes)) {
+            const tbody = document.getElementById('classesTableBody');
+            if (tbody) {
+                tbody.innerHTML = classes.map(cls => `
+                    <tr>
+                        <td>${cls.name}</td>
+                        <td class="hide-mobile">${cls.level}</td>
+                        <td class="hide-mobile">${cls.duration} dakika</td>
+                        <td class="hide-mobile">${cls.capacity} kişi</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-secondary btn-sm" onclick="editClass(${cls.id})">Düzenle</button>
+                                <button class="btn btn-danger btn-sm" onclick="silDers(${cls.id})">Sil</button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+    } catch (error) {
+        console.error('Load classes error:', error);
+    }
+}
+
+window.silDers = async function(id) {
+    if (confirm('Bu dersi silmek istediğinize emin misiniz?')) {
+        try {
+            const response = await fetch('../api/delete-ders.php?id=' + id);
+            const data = await response.json();
+            
+            if (data.success) {
+                alert('Ders silindi!');
+                location.reload();
+            } else {
+                alert('Hata: ' + data.error);
+            }
+        } catch (error) {
+            console.error('Hata:', error);
+            alert('Bir hata oluştu!');
+        }
+    }
+}
+// Yeni isimle tanımla
+window.deleteClassNew = async function(id) {
+    console.log('deleteClassNew çalıştı! ID:', id);
+    if (confirm('Bu dersi silmek istediğinize emin misiniz?')) {
+        try {
+            const url = '../api/delete-class.php?id=' + id;
+            console.log('İstek gönderiliyor:', url);
+            
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            console.log('Yanıt:', data);
+            
+            if (data.success) {
+                alert('Ders silindi!');
+                location.reload();
+            } else {
+                alert('Hata: ' + (data.error || 'Silinemedi'));
+            }
+        } catch (error) {
+            console.error('Hata:', error);
+            alert('Bir hata oluştu!');
+        }
+    }
+}
+
+// Sayfa yüklendiğinde dersleri getir
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('classesTableBody')) {
+        loadClassesList();
+    }
+});
+</script>
+
+        <!-- Schedule -->
+        <section id="schedule" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Ders Programı</h1>
+            </div>
+            
+            <div class="content-form">
+                <h3>Haftalık Program</h3>
+                <div class="form-group">
+                    <label class="form-label">Gün Seçin</label>
+                    <select class="form-control">
+                        <option>Pazartesi</option>
+                        <option>Salı</option>
+                        <option>Çarşamba</option>
+                        <option>Perşembe</option>
+                        <option>Cuma</option>
+                        <option>Cumartesi</option>
+                        <option>Pazar</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Ders</label>
+                        <select class="form-control">
+                            <option>Hatha Yoga</option>
+                            <option>Vinyasa Flow</option>
+                            <option>Yin Yoga</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Saat</label>
+                        <input type="time" class="form-control">
+                    </div>
+                </div>
+                <button class="btn btn-full-mobile">Program Ekle</button>
+            </div>
+        </section>
+
+        <!-- Reservations -->
+        <section id="reservations" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Rezervasyonlar</h1>
+            </div>
+            
+            <div class="data-table-wrapper">
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>İsim</th>
+                                <th class="hide-mobile">E-posta</th>
+                                <th>Ders</th>
+                                <th class="hide-mobile">Tarih</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ronit</td>
+                                <td class="hide-mobile">ronit@email.com</td>
+                                <td>Hatha Yoga</td>
+                                <td class="hide-mobile">18 Haziran 2024</td>
+                                <td><span class="status-badge status-pending">Bekliyor</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-secondary btn-sm">Onayla</button>
+                                        <button class="btn btn-danger btn-sm">İptal</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section id="gallery" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Galeri</h1>
+            </div>
+            
+            <div class="upload-area" id="imageUploadArea">
+                <div class="upload-icon">📷</div>
+                <p>Fotoğraf yüklemek için tıklayın veya sürükleyin</p>
+                <input type="file" id="imageInput" accept="image/*" multiple style="display: none;">
+            </div>
+            
+            <div class="media-grid" id="galleryGrid">
+                <div class="media-item">
+                    <div class="media-preview">📷</div>
+                    <div class="media-info">
+                        <div class="media-name">yoga-pose-1.jpg</div>
+                        <div class="media-date">15 Haziran 2024</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Videos -->
+        <section id="videos" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Videolar</h1>
+            </div>
+            
+            <div class="content-form">
+                <h3>Video Ekle</h3>
+                <div class="form-group">
+                    <label class="form-label">Video Başlığı</label>
+                    <input type="text" class="form-control" placeholder="Video başlığını girin">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">YouTube/Vimeo URL</label>
+                    <input type="url" class="form-control" placeholder="https://youtube.com/watch?v=...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Açıklama</label>
+                    <textarea class="form-control" placeholder="Video açıklaması"></textarea>
+                </div>
+                <button class="btn btn-full-mobile">Video Ekle</button>
+            </div>
+            
+            <div class="media-grid" style="margin-top: 2rem;">
+                <div class="media-item">
+                    <div class="media-preview">🎥</div>
+                    <div class="media-info">
+                        <div class="media-name">Başlangıç Yoga Dersi</div>
+                        <div class="media-date">10 Haziran 2024</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog -->
+        <section id="blog" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Blog Yazıları</h1>
+                <button class="btn" onclick="showModal('blogModal')">+ Yeni Yazı</button>
+            </div>
+            
+            <div class="data-table-wrapper">
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Başlık</th>
+                                <th class="hide-mobile">Kategori</th>
+                                <th class="hide-mobile">Tarih</th>
+                                <th>Durum</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Yoga ile Stresi Yenin</td>
+                                <td class="hide-mobile">Sağlık</td>
+                                <td class="hide-mobile">12 Haziran 2024</td>
+                                <td><span class="status-badge status-active">Yayında</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-secondary btn-sm">Düzenle</button>
+                                        <button class="btn btn-danger btn-sm">Sil</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings -->
+<section id="settings" class="content-section">
+    <div class="page-header">
+        <h1 class="page-title">Ayarlar</h1>
+    </div>
+    
+    <div class="content-form">
+        <h3>Profil Bilgileri</h3>
+        
+        <!-- PROFİL RESMİ YÜKLEME ALANI -->
+        <div class="form-group">
+            <label class="form-label">Profil Resmi</label>
+            <div class="upload-area" id="profileImageUpload" style="margin-bottom: 1rem;">
+                <div class="upload-icon">👤</div>
+                <p>Profil resmi yüklemek için tıklayın (önerilen boyut: 400x400px)</p>
+                <input type="file" id="profileImageInput" accept="image/*" style="display: none;">
+            </div>
+            <div id="currentProfileImage" style="display: none;">
+                <img src="" alt="Mevcut profil resmi" style="max-width: 200px; border-radius: 50%; margin-bottom: 1rem;">
+                <button type="button" class="btn btn-danger" onclick="removeProfileImage()">Profil Resmini Kaldır</button>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">İsim</label>
+            <input type="text" class="form-control" id="settingsName" value="Ronit">
+        </div>
+        <div class="form-group">
+            <label class="form-label">E-posta</label>
+            <input type="email" class="form-control" id="settingsEmail" value="ronit@yogastudio.com">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Telefon</label>
+            <input type="tel" class="form-control" id="settingsPhone" value="+90 555 123 4567">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Hakkımda</label>
+            <textarea class="form-control" id="settingsAbout" rows="8">15 yıllık yoga deneyimimle, binlerce öğrenciye kendilerini keşfetme yolculuğunda rehberlik ettim. Yoga benim için sadece fiziksel bir pratik değil, aynı zamanda ruhsal bir yolculuk.
+
+Hindistan'da aldığım 500 saatlik yoga eğitimi ve çeşitli uzmanlık sertifikalarımla, size özgün ve dönüştürücü bir deneyim sunuyorum.
+
+Her ders, bedeninizi güçlendirirken zihninizi sakinleştirmek için özenle tasarlanmıştır.</textarea>
+        </div>
+        
+        <h3 style="margin-top: 3rem;">Site Ayarları</h3>
+        <div class="form-group">
+            <label class="form-label">Site Başlığı</label>
+            <input type="text" class="form-control" id="settingsSiteTitle" value="Ronit Yoga Studio">
+        </div>
+		 <div class="form-group">
+            <label class="form-label">Site Logosu</label>
+            <div class="upload-area" id="logoUpload" style="margin-bottom: 1rem;">
+                <div class="upload-icon">🏷️</div>
+                <p>Logo yüklemek için tıklayın (önerilen boyut: 200x60px)</p>
+                <input type="file" id="logoInput" accept="image/*" style="display: none;">
+            </div>
+            <div id="currentLogo" style="display: none;">
+                <img src="" alt="Mevcut logo" style="max-height: 60px; border-radius: 5px; margin-bottom: 1rem; background: #f0f0f0; padding: 5px;">
+                <button type="button" class="btn btn-danger" onclick="removeLogo()">Logoyu Kaldır</button>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Ana Sayfa Arkaplan Resmi</label>
+            <div class="upload-area" id="heroImageUpload" style="margin-bottom: 1rem;">
+                <div class="upload-icon">🖼️</div>
+                <p>Hero arkaplan resmi yüklemek için tıklayın</p>
+                <input type="file" id="heroImageInput" accept="image/*" style="display: none;">
+            </div>
+            <div id="currentHeroImage" style="display: none;">
+                <img src="" alt="Mevcut hero resmi" style="max-width: 300px; border-radius: 10px; margin-bottom: 1rem;">
+                <button type="button" class="btn btn-danger" onclick="removeHeroImage()">Resmi Kaldır</button>
+            </div>
+        </div>
+        <!-- Settings section içine, Site Ayarları'ndan sonra ekleyin -->
+
+<h3 style="margin-top: 3rem;">Hero Carousel Yönetimi</h3>
+
+<div class="form-group">
+    <label class="form-label">Yeni Hero Resmi Ekle</label>
+    <div class="upload-area" id="heroCarouselUpload" style="margin-bottom: 1rem;">
+        <div class="upload-icon">🎠</div>
+        <p>Carousel'e resim eklemek için tıklayın (önerilen boyut: 1920x1080px)</p>
+        <input type="file" id="heroCarouselInput" accept="image/*" style="display: none;">
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="form-label">Mevcut Hero Resimleri</label>
+    <div id="heroImagesList" class="hero-images-grid">
+        <!-- Resimler buraya yüklenecek -->
+    </div>
+</div>
+
+
+        <div class="form-group">
+            <label class="form-label">Instagram URL</label>
+            <input type="url" class="form-control" id="settingsInstagram" placeholder="https://instagram.com/...">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Facebook URL</label>
+            <input type="url" class="form-control" id="settingsFacebook" placeholder="https://facebook.com/...">
+        </div>
+        <div class="form-group">
+            <label class="form-label">YouTube URL</label>
+            <input type="url" class="form-control" id="settingsYoutube" placeholder="https://youtube.com/...">
+        </div>
+        <button class="btn btn-full-mobile" onclick="saveAllSettings()">Tüm Ayarları Kaydet</button>
+    </div>
+</section>
+    </main>
+
+    <!-- Modals -->
+<div class="modal" id="classModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Yeni Ders Ekle</h2>
+            <button class="close-button" onclick="closeModal('classModal')">&times;</button>
+        </div>
+        <form>
+            <div class="form-group">
+                <label class="form-label">Ders Adı</label>
+                <input type="text" class="form-control" name="name" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Açıklama</label>
+                <textarea class="form-control" name="description" rows="3" required></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Seviye</label>
+                    <select class="form-control" name="level">
+                        <option>Başlangıç</option>
+                        <option>Orta</option>
+                        <option>İleri</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Süre (dakika)</label>
+                    <input type="number" class="form-control" name="duration" value="60">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Maksimum Katılımcı</label>
+                <input type="number" class="form-control" name="capacity" value="15">
+            </div>
+            <button type="submit" class="btn btn-full-mobile">Ders Ekle</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="blogModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Yeni Blog Yazısı</h2>
+            <button class="close-button" onclick="closeModal('blogModal')">&times;</button>
+        </div>
+        <form>
+            <div class="form-group">
+                <label class="form-label">Başlık</label>
+                <input type="text" class="form-control" name="title" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Kategori</label>
+                <select class="form-control" name="category">
+                    <option>Yoga</option>
+                    <option>Sağlık</option>
+                    <option>Meditasyon</option>
+                    <option>Beslenme</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">İçerik</label>
+                <textarea class="form-control" name="content" rows="10" required></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Kapak Görseli</label>
+                <input type="file" class="form-control" name="cover_image" accept="image/*">
+            </div>
+            <button type="submit" class="btn btn-full-mobile">Yazıyı Yayınla</button>
+        </form>
+    </div>
+</div>
+
+    <script src="../assets/js/admin.js"></script>
+	
+</body>
+</html>

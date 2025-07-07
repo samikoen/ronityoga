@@ -1,0 +1,19 @@
+# Resim ve video dosyalarına izin ver
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|mp4|avi|mov|wmv|flv|webm|mkv|m4v)$">
+    Allow from all
+</FilesMatch>
+
+# PHP dosyalarını engelle
+<FilesMatch "\.php$">
+    Deny from all
+</FilesMatch>
+
+# Directory listing kapalı
+Options -Indexes
+
+# Video dosyaları için MIME type ayarları
+AddType video/mp4 .mp4
+AddType video/webm .webm
+AddType video/ogg .ogv
+AddType video/quicktime .mov
+AddType video/x-msvideo .avi
