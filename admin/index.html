@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga Studio - Yönetim Paneli</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">YOGA STUDIO</div>
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        📊 Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#classes" class="nav-link" data-section="classes">
+                        🧘‍♀️ Dersler
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#schedule" class="nav-link" data-section="schedule">
+                        📅 Program
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#reservations" class="nav-link" data-section="reservations">
+                        📝 Rezervasyonlar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#gallery" class="nav-link" data-section="gallery">
+                        🖼️ Galeri
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#videos" class="nav-link" data-section="videos">
+                        🎥 Yoga'ya dair
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#blog" class="nav-link" data-section="blog">
+                        ✍️ Blog
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#newsletter" class="nav-link" data-section="newsletter">
+                        📧 Newsletter
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#content" class="nav-link" data-section="content">
+                        📝 İçerik Yönetimi
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#settings" class="nav-link" data-section="settings">
+                        ⚙️ Ayarlar
+                    </a>
+                </li>
+				<li class="nav-item" style="margin-top: auto;">
+    <a href="#" class="nav-link" onclick="logout()">
+        🚪 Çıkış
+    </a>
+</li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard -->
+        <section id="dashboard" class="content-section active">
+            <div class="page-header">
+                <h1 class="page-title">Dashboard</h1>
+                <button class="btn btn-secondary" onclick="loadDashboardStats()">Yönile</button>
+            </div>
+            
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card">
+                    <div class="stat-icon">🧘‍♀️</div>
+                    <div class="stat-info">
+                        <h3>Toplam Dersler</h3>
+                        <p class="stat-number" id="totalClasses">Yükleniyor...</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-info">
+                        <h3>Bu Hafta</h3>
+                        <p class="stat-number" id="weeklyReservations">Yükleniyor...</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <h3>Toplam Rezervasyon</h3>
+                        <p class="stat-number" id="totalReservations">Yükleniyor...</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🖼️</div>
+                    <div class="stat-info">
+                        <h3>Galeri Resimleri</h3>
+                        <p class="stat-number" id="totalGalleryImages">Yükleniyor...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-form" style="margin-top: 2rem;">
+                <h3>Son Aktiviteler</h3>
+                <div id="recentActivities" class="activity-list">
+                    <div class="activity-item">
+                        <span class="activity-time">2 saat önce</span>
+                        <span class="activity-text">Yeni rezervasyon alındı: Vinyasa Flow</span>
+                    </div>
+                    <div class="activity-item">
+                        <span class="activity-time">5 saat önce</span>
+                        <span class="activity-text">Galeri'ye yeni resim eklendi</span>
+                    </div>
+                    <div class="activity-item">
+                        <span class="activity-time">1 gün önce</span>
+                        <span class="activity-text">Yeni ders eklendi: Hatha Yoga</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Classes -->
+        <section id="classes" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Dersler</h1>
+                <button class="btn" onclick="showModal('classModal')">+ Yeni Ders Ekle</button>
+            </div>
+            
+            <div class="content-form">
+                <h3>Mevcut Dersler</h3>
+                <div class="data-table-wrapper">
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ders Adı</th>
+                                    <th class="hide-mobile">Seviye</th>
+                                    <th class="hide-mobile">Süre</th>
+                                    <th class="hide-mobile">Kapasite</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody id="classesTableBody">
+                                <tr>
+                                    <td>Dersler yükleniyor...</td>
+                                    <td class="hide-mobile">-</td>
+                                    <td class="hide-mobile">-</td>
+                                    <td class="hide-mobile">-</td>
+                                    <td>-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule -->
+        <section id="schedule" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Program</h1>
+                <button class="btn" onclick="showModal('scheduleModal')">+ Yeni Program Ekle</button>
+            </div>
+            
+            <div class="content-form">
+                <h3>Program Ekleme</h3>
+                <form id="scheduleForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Gün</label>
+                            <select class="form-control" id="scheduleDay" required>
+                                <option value="">Seçin...</option>
+                                <option value="monday">Pazartesi</option>
+                                <option value="tuesday">Salı</option>
+                                <option value="wednesday">Çarşamba</option>
+                                <option value="thursday">Perşembe</option>
+                                <option value="friday">Cuma</option>
+                                <option value="saturday">Cumartesi</option>
+                                <option value="sunday">Pazar</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Saat</label>
+                            <input type="time" class="form-control" id="scheduleTime" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ders</label>
+                        <select class="form-control" id="scheduleClass" required>
+                            <option value="">Seçin...</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">Program Ekle</button>
+                </form>
+            </div>
+            
+            <div class="content-form" style="margin-top: 2rem;">
+                <h3>Haftalık Program</h3>
+                <div class="schedule-grid" id="scheduleGrid">
+                    <!-- Program buraya yüklenecek -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Reservations -->
+        <section id="reservations" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Rezervasyonlar</h1>
+                <button class="btn" onclick="showModal('reservationModal')">+ Yeni Rezervasyon</button>
+            </div>
+            
+            <div class="content-form">
+                <h3>Filtreler</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Durum</label>
+                        <select class="form-control" id="reservationFilter">
+                            <option value="all">Tümü</option>
+                            <option value="pending">Beklemede</option>
+                            <option value="confirmed">Onaylandı</option>
+                            <option value="cancelled">İptal Edildi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tarih</label>
+                        <input type="date" class="form-control" id="dateFilter">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-secondary" onclick="loadReservations()" style="margin-top: 1.7rem;">Filtrele</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-form" style="margin-top: 2rem;">
+                <h3>Rezervasyonlar</h3>
+                <div class="data-table-wrapper">
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Müşteri</th>
+                                    <th class="hide-mobile">E-posta</th>
+                                    <th class="hide-mobile">Telefon</th>
+                                    <th>Ders</th>
+                                    <th class="hide-mobile">Tarih</th>
+                                    <th>Durum</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reservationsTableBody">
+                                <tr>
+                                    <td colspan="7">Rezervasyonlar yükleniyor...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section id="gallery" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Galeri</h1>
+                <button class="btn btn-secondary" onclick="loadGalleryImages()">Yönile</button>
+            </div>
+            
+            <div class="content-form">
+                <h3>Resim Yükle</h3>
+                <form id="galleryUploadForm">
+                    <div class="form-group">
+                        <label class="form-label">Resim Başlığı</label>
+                        <input type="text" class="form-control" id="galleryTitle" placeholder="Resim başlığı (isteğe bağlı)">
+                    </div>
+                    <div class="upload-area" id="galleryUploadArea">
+                        <div class="upload-icon">🖼️</div>
+                        <p>Resimleri buraya sürükleyin veya tıklayın</p>
+                        <input type="file" id="galleryImageInput" accept="image/*" multiple style="display: none;">
+                    </div>
+                    <button type="submit" class="btn" style="margin-top: 1rem;">Resim Yükle</button>
+                </form>
+            </div>
+            
+            <div class="content-form" style="margin-top: 2rem;">
+                <h3>Mevcut Resimler</h3>
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- Resimler buraya yüklenecek -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Videos - Yoga'ya dair -->
+        <section id="videos" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Yoga'ya dair</h1>
+                <button class="btn" onclick="showModal('videoModal')">+ Yeni Video Ekle</button>
+            </div>
+            
+            <div class="content-form">
+                <h3>Video Ekle</h3>
+                <form id="videoForm">
+                    <div class="form-group">
+                        <label class="form-label">Video Adı</label>
+                        <input type="text" class="form-control" id="videoTitle" placeholder="Video adını girin" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Video Dosyası</label>
+                        <input type="file" class="form-control" id="videoFile" accept="video/*" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Açıklama</label>
+                        <textarea class="form-control" id="videoDescription" placeholder="Video açıklaması" rows="3" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Kimler için?</label>
+                            <select class="form-control" id="videoTarget" required>
+                                <option value="">Seçin...</option>
+                                <option value="beginner">Başlangıç</option>
+                                <option value="intermediate">Orta seviye</option>
+                                <option value="advanced">İleri seviye</option>
+                                <option value="all">Tüm seviyeler</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Zorluk Seviyesi</label>
+                            <select class="form-control" id="videoDifficulty" required>
+                                <option value="">Seçin...</option>
+                                <option value="easy">Kolay</option>
+                                <option value="medium">Orta</option>
+                                <option value="hard">Zor</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-full-mobile">Video Ekle</button>
+                </form>
+            </div>
+            
+            <div class="content-form" style="margin-top: 2rem;">
+                <h3>Mevcut Videolar</h3>
+                <div class="data-table-wrapper">
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Video Adı</th>
+                                    <th class="hide-mobile">Hedef Kitle</th>
+                                    <th class="hide-mobile">Zorluk</th>
+                                    <th class="hide-mobile">Tarih</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody id="videosTableBody">
+                                <tr>
+                                    <td>Başlangıç Yoga Dersi</td>
+                                    <td class="hide-mobile">Başlangıç</td>
+                                    <td class="hide-mobile">Kolay</td>
+                                    <td class="hide-mobile">10 Haziran 2024</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn btn-secondary btn-sm">Düzenle</button>
+                                            <button class="btn btn-danger btn-sm">Sil</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog -->
+        <section id="blog" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Blog Yönetimi</h1>
+                <button class="btn" onclick="openBlogModal()">+ Yeni Yazı Ekle</button>
+            </div>
+            
+            <div class="filters-section">
+                <div class="search-group">
+                    <input type="text" id="blogSearch" placeholder="Yazı ara..." class="search-input">
+                    <select id="blogCategoryFilter" class="filter-select">
+                        <option value="">Tüm Kategoriler</option>
+                        <option value="Yoga Pozları">Yoga Pozları</option>
+                        <option value="Meditasyon">Meditasyon</option>
+                        <option value="Yaşam Tarzı">Yaşam Tarzı</option>
+                        <option value="Başlangıç">Başlangıç</option>
+                        <option value="İleri Seviye">İleri Seviye</option>
+                        <option value="Genel">Genel</option>
+                    </select>
+                    <select id="blogStatusFilter" class="filter-select">
+                        <option value="all">Tüm Durumlar</option>
+                        <option value="published">Yayınlanan</option>
+                        <option value="draft">Taslak</option>
+                        <option value="archived">Arşivlenen</option>
+                    </select>
+                    <button onclick="loadBlogPosts()" class="btn">Filtrele</button>
+                </div>
+            </div>
+            
+            <div class="data-table-wrapper">
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Başlık</th>
+                                <th class="hide-mobile">Kategori</th>
+                                <th class="hide-mobile">Durum</th>
+                                <th class="hide-mobile">Görüntüleme</th>
+                                <th class="hide-mobile">Tarih</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blogTableBody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 2rem;">Blog yazıları yükleniyor...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="pagination" id="blogPagination"></div>
+        </section>
+
+        <!-- Settings -->
+        <section id="settings" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Ayarlar</h1>
+            </div>
+            
+            <div class="content-form">
+                <h3>Site Ayarları</h3>
+                <form onsubmit="saveAllSettings(); return false;">
+                    <div class="form-group">
+                        <label class="form-label">Adınız</label>
+                        <input type="text" class="form-control" id="settingsName" placeholder="Adınızı girin">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Site Başlığı</label>
+                        <input type="text" class="form-control" id="settingsSiteTitle" placeholder="Site başlığını girin">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Hakkımda</label>
+                        <textarea class="form-control" id="settingsAbout" placeholder="Hakkınızda bilgi" rows="5"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">E-posta</label>
+                            <input type="email" class="form-control" id="settingsEmail" placeholder="E-posta adresiniz">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Telefon</label>
+                            <input type="tel" class="form-control" id="settingsPhone" placeholder="Telefon numaranız">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Instagram</label>
+                        <input type="url" class="form-control" id="settingsInstagram" placeholder="Instagram profil linki">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Facebook</label>
+                        <input type="url" class="form-control" id="settingsFacebook" placeholder="Facebook profil linki">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">YouTube</label>
+                        <input type="url" class="form-control" id="settingsYoutube" placeholder="YouTube kanal linki">
+                    </div>
+                    <button type="submit" class="btn btn-full-mobile">Ayarları Kaydet</button>
+                </form>
+            </div>
+            
+            <div class="content-form" style="margin-top: 2rem;">
+                <h3>Logo Ayarları</h3>
+                <div class="image-upload-section">
+                    <div id="currentLogo" style="display: none;">
+                        <img src="" alt="Mevcut Logo" style="max-width: 200px; max-height: 100px; object-fit: contain;">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="removeLogo()">Logoyu Kaldır</button>
+                    </div>
+                    <div class="upload-area" id="logoUpload">
+                        <div class="upload-icon">🖼️</div>
+                        <p>Logo yüklemek için tıklayın</p>
+                        <input type="file" id="logoInput" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-form" style="margin-top: 2rem;">
+                <h3>Profil Resmi</h3>
+                <div class="image-upload-section">
+                    <div id="currentProfileImage" style="display: none;">
+                        <img src="" alt="Mevcut Profil Resmi" style="max-width: 200px; max-height: 200px; object-fit: cover; border-radius: 10px;">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="removeProfileImage()">Profil Resmini Kaldır</button>
+                    </div>
+                    <div class="upload-area" id="profileImageUpload">
+                        <div class="upload-icon">👤</div>
+                        <p>Profil resmi yüklemek için tıklayın</p>
+                        <input type="file" id="profileImageInput" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-form" style="margin-top: 2rem;">
+                <h3>Hero Carousel Resimleri</h3>
+                <div class="image-upload-section">
+                    <div class="upload-area" id="heroCarouselUpload">
+                        <div class="upload-icon">🏞️</div>
+                        <p>Yeni hero resmi eklemek için tıklayın</p>
+                        <input type="file" id="heroCarouselInput" accept="image/*" style="display: none;">
+                    </div>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h4>Mevcut Hero Resimleri</h4>
+                        <div id="heroImagesList" class="hero-images-grid">
+                            <!-- Hero resimleri buraya yüklenecek -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-form" style="margin-top: 2rem;">
+                <h3>Sosyal Medya Logoları</h3>
+                <div class="social-media-uploads">
+                    <div class="social-upload-item">
+                        <h4>Instagram Logo</h4>
+                        <div class="upload-area" id="instagramUpload">
+                            <div class="upload-icon">📷</div>
+                            <p>Instagram logosu yükle</p>
+                            <input type="file" id="instagramInput" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="social-upload-item">
+                        <h4>Facebook Logo</h4>
+                        <div class="upload-area" id="facebookUpload">
+                            <div class="upload-icon">📘</div>
+                            <p>Facebook logosu yükle</p>
+                            <input type="file" id="facebookInput" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="social-upload-item">
+                        <h4>YouTube Logo</h4>
+                        <div class="upload-area" id="youtubeUpload">
+                            <div class="upload-icon">▶️</div>
+                            <p>YouTube logosu yükle</p>
+                            <input type="file" id="youtubeInput" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="social-upload-item">
+                        <h4>Twitter Logo</h4>
+                        <div class="upload-area" id="twitterUpload">
+                            <div class="upload-icon">🐦</div>
+                            <p>Twitter logosu yükle</p>
+                            <input type="file" id="twitterInput" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-form" style="margin-top: 2rem;">
+                <h3>Site Teması</h3>
+                <form id="themeForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Ana Renk (Primary)</label>
+                            <input type="color" class="form-control" id="primaryColor" value="#a0877c">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Koyu Renk (Primary Dark)</label>
+                            <input type="color" class="form-control" id="primaryDark" value="#6b5651">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Vurgu Rengi (Accent)</label>
+                            <input type="color" class="form-control" id="accentColor" value="#d4af37">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Arka Plan Rengi</label>
+                            <input type="color" class="form-control" id="backgroundLight" value="#f9f6f1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Font Ailesi</label>
+                        <select class="form-control" id="fontFamily">
+                            <option value="Inter">Inter</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Times">Times New Roman</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn" onclick="saveThemeColors()">Tema Renklerini Kaydet</button>
+                    <button type="button" class="btn btn-secondary" onclick="previewThemeColors()">Önizle</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section id="newsletter" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Newsletter Yönetimi</h1>
+                <button class="btn btn-secondary" onclick="loadSubscribers()">Yenile</button>
+            </div>
+            
+            <div class="section-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalSubscribers">-</div>
+                    <div class="stat-label">Toplam Abone</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="activeSubscribers">-</div>
+                    <div class="stat-label">Aktif Abone</div>
+                </div>
+            </div>
+
+            <div class="filters-section">
+                <div class="search-group">
+                    <input type="text" id="subscriberSearch" placeholder="E-posta ara..." class="search-input">
+                    <select id="statusFilter" class="filter-select">
+                        <option value="all">Tüm Durumlar</option>
+                        <option value="active">Aktif</option>
+                        <option value="unsubscribed">Abonelik İptal</option>
+                    </select>
+                    <button onclick="loadSubscribers()" class="btn">Filtrele</button>
+                </div>
+            </div>
+
+            <div class="data-table-wrapper">
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>E-posta</th>
+                                <th>Abone Tarihi</th>
+                                <th>Durum</th>
+                                <th>IP Adresi</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subscribersTableBody">
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 2rem;">Newsletter verileri yükleniyor...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="pagination" id="subscribersPagination"></div>
+        </section>
+
+        <!-- Content Management Section -->
+        <section id="content" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">İçerik Yönetimi</h1>
+                <button class="btn btn-secondary" onclick="loadSiteContent()">Yenile</button>
+            </div>
+
+            <div class="content-tabs">
+                <button class="tab-btn active" onclick="showContentTab('hero-quote')">Hero Quote</button>
+                <button class="tab-btn" onclick="showContentTab('story')">Hikayemiz</button>
+                <button class="tab-btn" onclick="showContentTab('testimonials')">Yorumlar</button>
+                <button class="tab-btn" onclick="showContentTab('features')">Özellikler</button>
+            </div>
+
+            <!-- Hero Quote Tab -->
+            <div id="hero-quote-tab" class="tab-content active">
+                <div class="content-form">
+                    <h3>Hero Quote Düzenle</h3>
+                    <form id="heroQuoteForm">
+                        <div class="form-group">
+                            <label class="form-label">Quote Metni</label>
+                            <input type="text" id="heroQuoteText" class="form-control" placeholder="Yoga, kendini bulma sanatıdır">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <input type="checkbox" id="heroQuoteEnabled"> Quote'u aktif et
+                            </label>
+                        </div>
+                        <button type="submit" class="btn">Güncelle</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Story Tab -->
+            <div id="story-tab" class="tab-content">
+                <div class="content-form">
+                    <h3>Hikayemiz Bölümü</h3>
+                    <form id="storyForm">
+                        <div class="form-group">
+                            <label class="form-label">Başlık</label>
+                            <input type="text" id="storyTitle" class="form-control" placeholder="Hikayemiz">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Giriş Paragrafı</label>
+                            <textarea id="storyIntro" class="form-control" rows="2" placeholder="İlk paragraf..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Hikaye İçeriği</label>
+                            <div id="storyContentList">
+                                <!-- Dynamic content paragraphs will be added here -->
+                            </div>
+                            <button type="button" onclick="addStoryParagraph()" class="btn btn-secondary">Paragraf Ekle</button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Resim URL</label>
+                            <input type="url" id="storyImage" class="form-control" placeholder="https://...">
+                        </div>
+                        <h4>İstatistikler</h4>
+                        <div id="storyStatsList">
+                            <!-- Dynamic stats will be added here -->
+                        </div>
+                        <button type="button" onclick="addStoryStat()" class="btn btn-secondary">İstatistik Ekle</button>
+                        <br><br>
+                        <button type="submit" class="btn">Güncelle</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Testimonials Tab -->
+            <div id="testimonials-tab" class="tab-content">
+                <div class="content-form">
+                    <h3>Müşteri Yorumları</h3>
+                    <div id="testimonialsList">
+                        <!-- Dynamic testimonials will be added here -->
+                    </div>
+                    <button type="button" onclick="addTestimonial()" class="btn btn-secondary">Yorum Ekle</button>
+                    <br><br>
+                    <button onclick="saveTestimonials()" class="btn">Güncelle</button>
+                </div>
+            </div>
+
+            <!-- Features Tab -->
+            <div id="features-tab" class="tab-content">
+                <div class="content-form">
+                    <h3>Topluluk Özellikleri</h3>
+                    <div id="featuresList">
+                        <!-- Dynamic features will be added here -->
+                    </div>
+                    <button type="button" onclick="addFeature()" class="btn btn-secondary">Özellik Ekle</button>
+                    <br><br>
+                    <button onclick="saveFeatures()" class="btn">Güncelle</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="classModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Yeni Ders Ekle</h2>
+                <button class="modal-close" onclick="closeModal('classModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label class="form-label">Ders Adı</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Açıklama</label>
+                        <textarea class="form-control" name="description" rows="3" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Seviye</label>
+                            <select class="form-control" name="level" required>
+                                <option value="">Seçin...</option>
+                                <option value="Başlangıç">Başlangıç</option>
+                                <option value="Orta">Orta</option>
+                                <option value="İleri">İleri</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Süre (dakika)</label>
+                            <input type="number" class="form-control" name="duration" min="30" max="120" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Kapasite</label>
+                        <input type="number" class="form-control" name="capacity" min="1" max="30" required>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('classModal')">İptal</button>
+                        <button type="submit" class="btn">Ders Ekle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="blogModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2 class="modal-title" id="blogModalTitle">Yeni Blog Yazısı</h2>
+                <button class="modal-close" onclick="closeBlogModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="blogForm">
+                    <input type="hidden" id="blogId" name="id">
+                    
+                    <!-- Ana Bilgiler -->
+                    <div class="form-group">
+                        <label class="form-label">Başlık</label>
+                        <input type="text" class="form-control" id="blogTitle" name="title" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Kategori</label>
+                            <select class="form-control" id="blogCategory" name="category" required>
+                                <option value="">Seçin...</option>
+                                <option value="Yoga Pozları">Yoga Pozları</option>
+                                <option value="Meditasyon">Meditasyon</option>
+                                <option value="Yaşam Tarzı">Yaşam Tarzı</option>
+                                <option value="Başlangıç">Başlangıç</option>
+                                <option value="İleri Seviye">İleri Seviye</option>
+                                <option value="Genel">Genel</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Durum</label>
+                            <select class="form-control" id="blogStatus" name="status">
+                                <option value="draft">Taslak</option>
+                                <option value="published">Yayınlanan</option>
+                                <option value="archived">Arşivlenen</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Kısa Açıklama</label>
+                        <textarea class="form-control" id="blogExcerpt" name="excerpt" rows="3" placeholder="Blog yazısının kısa özeti (SEO için önemli)"></textarea>
+                    </div>
+                    
+                    <!-- Öne Çıkan Görsel -->
+                    <div class="form-group">
+                        <label class="form-label">Öne Çıkan Görsel URL</label>
+                        <div class="media-input-group">
+                            <input type="url" class="form-control" id="blogFeaturedImage" name="featured_image" placeholder="https://...">
+                            <button type="button" class="btn btn-secondary" onclick="openMediaLibrary('blogFeaturedImage')">Galeri</button>
+                        </div>
+                        <div id="featuredImagePreview" class="image-preview" style="display: none;">
+                            <img src="" alt="Önizleme" style="max-width: 300px; max-height: 200px; border-radius: 5px; margin-top: 10px;">
+                        </div>
+                    </div>
+                    
+                    <!-- İçerik -->
+                    <div class="form-group">
+                        <label class="form-label">İçerik</label>
+                        <div class="editor-toolbar">
+                            <button type="button" onclick="insertFormatting('h2')" class="editor-btn">H2</button>
+                            <button type="button" onclick="insertFormatting('h3')" class="editor-btn">H3</button>
+                            <button type="button" onclick="insertFormatting('bold')" class="editor-btn"><b>B</b></button>
+                            <button type="button" onclick="insertFormatting('italic')" class="editor-btn"><i>I</i></button>
+                            <button type="button" onclick="insertFormatting('ul')" class="editor-btn">• Liste</button>
+                            <button type="button" onclick="insertFormatting('ol')" class="editor-btn">1. Liste</button>
+                            <button type="button" onclick="insertImage()" class="editor-btn">🖼️ Resim</button>
+                        </div>
+                        <textarea class="form-control" id="blogContent" name="content" rows="12" required placeholder="HTML formatında yazabilirsiniz. Örn: <p>Paragraf</p>, <h3>Başlık</h3>, <ul><li>Liste</li></ul>"></textarea>
+                    </div>
+                    
+                    <!-- Etiketler -->
+                    <div class="form-group">
+                        <label class="form-label">Etiketler</label>
+                        <input type="text" class="form-control" id="blogTags" name="tags" placeholder="yoga, meditasyon, başlangıç (virgülle ayırın)">
+                        <small class="form-text">Etiketleri virgülle ayırarak yazın</small>
+                    </div>
+                    
+                    <!-- SEO Ayarları -->
+                    <div class="seo-section">
+                        <h4 style="margin: 1.5rem 0 1rem 0; color: #666;">SEO Ayarları</h4>
+                        <div class="form-group">
+                            <label class="form-label">Meta Başlık</label>
+                            <input type="text" class="form-control" id="blogMetaTitle" name="meta_title" placeholder="SEO için özel başlık (boş bırakılırsa ana başlık kullanılır)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Meta Açıklama</label>
+                            <textarea class="form-control" id="blogMetaDescription" name="meta_description" rows="2" placeholder="Google'da görünecek açıklama (boş bırakılırsa kısa açıklama kullanılır)"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeBlogModal()">İptal</button>
+                        <button type="button" class="btn btn-warning" onclick="saveBlogDraft()">Taslak Kaydet</button>
+                        <button type="submit" class="btn">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="scheduleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Program Ekle</h2>
+                <button class="modal-close" onclick="closeModal('scheduleModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="scheduleModalForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Gün</label>
+                            <select class="form-control" id="modalScheduleDay" required>
+                                <option value="">Seçin...</option>
+                                <option value="monday">Pazartesi</option>
+                                <option value="tuesday">Salı</option>
+                                <option value="wednesday">Çarşamba</option>
+                                <option value="thursday">Perşembe</option>
+                                <option value="friday">Cuma</option>
+                                <option value="saturday">Cumartesi</option>
+                                <option value="sunday">Pazar</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Saat</label>
+                            <input type="time" class="form-control" id="modalScheduleTime" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ders</label>
+                        <select class="form-control" id="modalScheduleClass" required>
+                            <option value="">Seçin...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Süre (dakika)</label>
+                        <input type="number" class="form-control" id="modalScheduleDuration" min="30" max="120" value="60" required>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('scheduleModal')">İptal</button>
+                        <button type="submit" class="btn">Program Ekle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="reservationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Yeni Rezervasyon</h2>
+                <button class="modal-close" onclick="closeModal('reservationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="reservationForm">
+                    <div class="form-group">
+                        <label class="form-label">Müşteri Adı</label>
+                        <input type="text" class="form-control" id="customerName" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">E-posta</label>
+                            <input type="email" class="form-control" id="customerEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Telefon</label>
+                            <input type="tel" class="form-control" id="customerPhone" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ders</label>
+                        <select class="form-control" id="reservationClass" required>
+                            <option value="">Seçin...</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Tarih</label>
+                            <input type="date" class="form-control" id="reservationDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Saat</label>
+                            <input type="time" class="form-control" id="reservationTime" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Notlar</label>
+                        <textarea class="form-control" id="reservationNotes" rows="3" placeholder="Özel istekler veya notlar"></textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('reservationModal')">İptal</button>
+                        <button type="submit" class="btn">Rezervasyon Oluştur</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    </main>
+
+    <script src="../assets/js/admin.js"></script>
+    <script>
+        // Video form işlemleri
+        document.getElementById('videoForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('title', document.getElementById('videoTitle').value);
+            formData.append('description', document.getElementById('videoDescription').value);
+            formData.append('target_audience', document.getElementById('videoTarget').value);
+            formData.append('difficulty', document.getElementById('videoDifficulty').value);
+            formData.append('video', document.getElementById('videoFile').files[0]);
+            
+            try {
+                const response = await fetch('../api/videos.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Video başarıyla eklendi!');
+                    document.getElementById('videoForm').reset();
+                    loadVideosList();
+                } else {
+                    alert('Hata: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Video upload error:', error);
+                alert('Video yüklenirken hata oluştu!');
+            }
+        });
+
+        // Videoları yükle
+        async function loadVideosList() {
+            try {
+                const response = await fetch('../api/videos.php');
+                const videos = await response.json();
+                
+                if (Array.isArray(videos)) {
+                    const tbody = document.getElementById('videosTableBody');
+                    if (tbody) {
+                        tbody.innerHTML = videos.map(video => `
+                            <tr>
+                                <td>${video.title}</td>
+                                <td class="hide-mobile">${video.target_audience}</td>
+                                <td class="hide-mobile">${video.difficulty}</td>
+                                <td class="hide-mobile">${video.created_at}</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-secondary btn-sm" onclick="editVideo(${video.id})">Düzenle</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteVideo(${video.id})">Sil</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `).join('');
+                    }
+                }
+            } catch (error) {
+                console.error('Load videos error:', error);
+            }
+        }
+
+        // Video silme
+        async function deleteVideo(id) {
+            if (confirm('Bu videoyu silmek istediğinize emin misiniz?')) {
+                try {
+                    const response = await fetch(`../api/videos.php?id=${id}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        alert('Video başarıyla silindi!');
+                        loadVideosList();
+                    } else {
+                        alert('Hata: ' + result.error);
+                    }
+                } catch (error) {
+                    console.error('Delete video error:', error);
+                    alert('Video silinirken hata oluştu!');
+                }
+            }
+        }
+
+        // Video düzenleme
+        function editVideo(id) {
+            alert('Video düzenleme özelliği yakında eklenecek. Video ID: ' + id);
+        }
+
+        // Sayfa yüklendiğinde videoları getir
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('videosTableBody')) {
+                loadVideosList();
+            }
+        });
+
+        // Newsletter Management Functions
+        async function loadSubscribers(page = 1) {
+            try {
+                const search = document.getElementById('subscriberSearch').value;
+                const status = document.getElementById('statusFilter').value;
+                
+                const response = await fetch(`../api/newsletter.php?page=${page}&search=${search}&status=${status}`);
+                const data = await response.json();
+                
+                if (data.subscribers) {
+                    displaySubscribers(data.subscribers);
+                    updateSubscriberStats(data);
+                    createPagination('subscribersPagination', data.page, data.pages, loadSubscribers);
+                }
+            } catch (error) {
+                console.error('Error loading subscribers:', error);
+            }
+        }
+
+        function displaySubscribers(subscribers) {
+            const tbody = document.getElementById('subscribersTableBody');
+            
+            if (subscribers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="no-data">Abone bulunamadı</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = subscribers.map(subscriber => `
+                <tr>
+                    <td>${subscriber.email}</td>
+                    <td>${new Date(subscriber.subscribed_at).toLocaleDateString('tr-TR')}</td>
+                    <td>
+                        <span class="status-badge ${subscriber.status === 'active' ? 'status-active' : 'status-inactive'}">
+                            ${subscriber.status === 'active' ? 'Aktif' : 'İptal'}
+                        </span>
+                    </td>
+                    <td>${subscriber.ip_address || '-'}</td>
+                    <td class="actions">
+                        ${subscriber.status === 'active' ? 
+                            `<button onclick="unsubscribeUser(${subscriber.id})" class="btn-small btn-warning">İptal Et</button>` : 
+                            `<button onclick="resubscribeUser(${subscriber.id})" class="btn-small btn-success">Yeniden Aktif Et</button>`
+                        }
+                        <button onclick="deleteSubscriber(${subscriber.id})" class="btn-small btn-danger">Sil</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateSubscriberStats(data) {
+            document.getElementById('totalSubscribers').textContent = data.total;
+            // Calculate active subscribers from the data
+            // This would be more accurate with a separate API call for stats
+            document.getElementById('activeSubscribers').textContent = data.total;
+        }
+
+        async function unsubscribeUser(id) {
+            if (!confirm('Bu kullanıcının aboneliğini iptal etmek istediğinize emin misiniz?')) return;
+            
+            try {
+                const response = await fetch(`../api/newsletter.php?id=${id}&action=unsubscribe`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    loadSubscribers();
+                    showNotification('Abonelik iptal edildi', 'success');
+                }
+            } catch (error) {
+                showNotification('Hata oluştu', 'error');
+            }
+        }
+
+        async function deleteSubscriber(id) {
+            if (!confirm('Bu aboneyi kalıcı olarak silmek istediğinize emin misiniz?')) return;
+            
+            try {
+                const response = await fetch(`../api/newsletter.php?id=${id}&action=delete`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    loadSubscribers();
+                    showNotification('Abone silindi', 'success');
+                }
+            } catch (error) {
+                showNotification('Hata oluştu', 'error');
+            }
+        }
+
+        // Content Management Functions
+        function showContentTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        async function loadSiteContent() {
+            try {
+                const response = await fetch('../api/site_content.php');
+                const content = await response.json();
+                
+                // Load hero quote
+                if (content.hero_quote) {
+                    document.getElementById('heroQuoteText').value = content.hero_quote.quote || '';
+                    document.getElementById('heroQuoteEnabled').checked = content.hero_quote.enabled || false;
+                }
+                
+                // Load story content
+                if (content.story_section) {
+                    loadStoryContent(content.story_section);
+                }
+                
+                // Load testimonials
+                if (content.community_testimonials) {
+                    loadTestimonials(content.community_testimonials.testimonials);
+                }
+                
+                // Load features
+                if (content.community_features) {
+                    loadFeatures(content.community_features.features);
+                }
+                
+            } catch (error) {
+                console.error('Error loading site content:', error);
+            }
+        }
+
+        function loadStoryContent(story) {
+            document.getElementById('storyTitle').value = story.title || '';
+            document.getElementById('storyIntro').value = story.intro || '';
+            document.getElementById('storyImage').value = story.image || '';
+            
+            // Load content paragraphs
+            const contentList = document.getElementById('storyContentList');
+            contentList.innerHTML = '';
+            (story.content || []).forEach((paragraph, index) => {
+                addStoryParagraph(paragraph, index);
+            });
+            
+            // Load stats
+            const statsList = document.getElementById('storyStatsList');
+            statsList.innerHTML = '';
+            (story.stats || []).forEach((stat, index) => {
+                addStoryStat(stat.number, stat.label, index);
+            });
+        }
+
+        function addStoryParagraph(text = '', index = null) {
+            const contentList = document.getElementById('storyContentList');
+            const actualIndex = index !== null ? index : contentList.children.length;
+            
+            const div = document.createElement('div');
+            div.className = 'form-group story-paragraph';
+            div.innerHTML = `
+                <textarea class="form-control" placeholder="Paragraf metni..." rows="3">${text}</textarea>
+                <button type="button" onclick="removeStoryParagraph(this)" class="btn-small btn-danger">Sil</button>
+            `;
+            
+            contentList.appendChild(div);
+        }
+
+        function removeStoryParagraph(button) {
+            button.closest('.story-paragraph').remove();
+        }
+
+        function addStoryStat(number = '', label = '', index = null) {
+            const statsList = document.getElementById('storyStatsList');
+            
+            const div = document.createElement('div');
+            div.className = 'form-row story-stat';
+            div.innerHTML = `
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Sayı" value="${number}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Label" value="${label}">
+                </div>
+                <button type="button" onclick="removeStoryStat(this)" class="btn-small btn-danger">Sil</button>
+            `;
+            
+            statsList.appendChild(div);
+        }
+
+        function removeStoryStat(button) {
+            button.closest('.story-stat').remove();
+        }
+
+        function loadTestimonials(testimonials) {
+            const list = document.getElementById('testimonialsList');
+            list.innerHTML = '';
+            
+            testimonials.forEach((testimonial, index) => {
+                addTestimonial(testimonial.text, testimonial.author, index);
+            });
+        }
+
+        function addTestimonial(text = '', author = '', index = null) {
+            const list = document.getElementById('testimonialsList');
+            
+            const div = document.createElement('div');
+            div.className = 'form-card testimonial-item';
+            div.innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">Yorum</label>
+                    <textarea class="form-control" placeholder="Müşteri yorumu..." rows="3">${text}</textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Yazar</label>
+                    <input type="text" class="form-control" placeholder="- İsim S." value="${author}">
+                </div>
+                <button type="button" onclick="removeTestimonial(this)" class="btn-small btn-danger">Sil</button>
+            `;
+            
+            list.appendChild(div);
+        }
+
+        function removeTestimonial(button) {
+            button.closest('.testimonial-item').remove();
+        }
+
+        function loadFeatures(features) {
+            const list = document.getElementById('featuresList');
+            list.innerHTML = '';
+            
+            features.forEach((feature, index) => {
+                addFeature(feature.icon, feature.title, feature.description, index);
+            });
+        }
+
+        function addFeature(icon = '', title = '', description = '', index = null) {
+            const list = document.getElementById('featuresList');
+            
+            const div = document.createElement('div');
+            div.className = 'form-card feature-item';
+            div.innerHTML = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Icon</label>
+                        <input type="text" class="form-control" placeholder="🧘‍♀️" value="${icon}">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Başlık</label>
+                        <input type="text" class="form-control" placeholder="Özellik başlığı" value="${title}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Açıklama</label>
+                    <textarea class="form-control" placeholder="Özellik açıklaması..." rows="2">${description}</textarea>
+                </div>
+                <button type="button" onclick="removeFeature(this)" class="btn-small btn-danger">Sil</button>
+            `;
+            
+            list.appendChild(div);
+        }
+
+        function removeFeature(button) {
+            button.closest('.feature-item').remove();
+        }
+
+        // Initialize content management
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('subscribersTableBody')) {
+                loadSubscribers();
+                loadSiteContent();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -3,46 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ronit Yoga Studio - İç huzurunuzu keşfedin. Profesyonel yoga eğitimi, beden zihin ve ruh uyumu.">
+    <meta name="keywords" content="yoga, meditation, wellness, istanbul, yoga dersleri, yoga eğitimi">
+    <meta name="author" content="Ronit Yoga Studio">
     <title>Ronit Yoga Studio</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Video Section Styles - Diğer bölümlerle uyumlu */
+        .videos {
+            background: #f8f9fa !important;
+            padding: 5rem 2rem !important;
+        }
+
+        .videos-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .videos h2 {
+            text-align: center;
+            font-size: 3rem !important;
+            font-weight: 200;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #a0877c 0%, #6b5651 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video-item {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+        }
+
+        .video-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        }
+
+        .video-wrapper {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            background: #f8f9fa;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #e9ecef;
+        }
+
+        .video-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .video-info p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .video-meta {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .video-target,
+        .video-difficulty {
+            background: linear-gradient(135deg, #a0877c 0%, #6b5651 100%);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: none;
+        }
+        
+        /* Videos Section Mobile Responsive */
+        @media (max-width: 768px) {
+            .videos {
+                padding: 3rem 1rem !important;
+            }
+            
+            .videos h2 {
+                font-size: 2.5rem !important;
+                margin-bottom: 2rem;
+            }
+            
+            .videos-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .video-item {
+                padding: 1.2rem;
+            }
+            
+            .video-info h3 {
+                font-size: 1.2rem;
+            }
+            
+            .video-info p {
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .videos {
+                padding: 2rem 0.8rem !important;
+            }
+            
+            .videos h2 {
+                font-size: 2rem !important;
+                margin-bottom: 1.5rem;
+            }
+            
+            .video-item {
+                padding: 1rem;
+                margin: 0 0.3rem;
+            }
+            
+            .video-wrapper video {
+                height: 180px;
+            }
+            
+            .video-info h3 {
+                font-size: 1.1rem;
+                margin-bottom: 0.4rem;
+            }
+            
+            .video-info p {
+                font-size: 0.8rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .video-meta {
+                gap: 0.5rem;
+            }
+            
+            .video-target,
+            .video-difficulty {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav>
+    <nav role="navigation" aria-label="Ana navigasyon">
         <div class="nav-container">
             <div class="logo">
-                <img id="siteLogo" src="" alt="" style="display: none;">
+                <img id="siteLogo" src="" alt="Ronit Yoga Studio Logo" style="display: none;">
                 <span id="siteTitle">RONIT YOGA</span>
             </div>
             
             <!-- Hamburger Menu Button -->
-            <div class="hamburger" id="hamburger">
+            <button class="hamburger" id="hamburger" aria-label="Menüyü aç" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
             
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home" onclick="closeMenu()">Ana Sayfa</a></li>
-                <li><a href="#about" onclick="closeMenu()">Hakkımda</a></li>
-                <li><a href="#classes" onclick="closeMenu()">Dersler</a></li>
-                <li><a href="#gallery" onclick="closeMenu()">Galeri</a></li>
-                <li><a href="#contact" onclick="closeMenu()">İletişim</a></li>
+            <ul class="nav-links" id="navLinks" role="menubar">
+                <li role="none"><a href="#home" role="menuitem" onclick="closeMenu()">Ana Sayfa</a></li>
+                <li role="none"><a href="#about" role="menuitem" onclick="closeMenu()">Hakkımda</a></li>
+                <li role="none"><a href="#classes" role="menuitem" onclick="closeMenu()">Dersler</a></li>
+                <li role="none"><a href="#videos" role="menuitem" onclick="closeMenu()">Yoga'ya dair</a></li>
+                <li role="none"><a href="#gallery" role="menuitem" onclick="closeMenu()">Galeri</a></li>
+                <li role="none"><a href="#reservation" role="menuitem" onclick="closeMenu()">Rezervasyon</a></li>
+                <li role="none"><a href="#blog" role="menuitem" onclick="closeMenu()">Blog</a></li>
+                <li role="none"><a href="#contact" role="menuitem" onclick="closeMenu()">İletişim</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
+    <header id="home" class="hero" role="banner">
         <div class="hero-content">
-            <h1>İç Huzurunuzu Keşfedin</h1>
-            <p>Beden, zihin ve ruhun uyumlu dansı</p>
-            <a href="#classes" class="cta-button">Dersleri Keşfet</a>
+            <div class="hero-quote">
+                <p class="quote-text">"Yoga, kendini bulma sanatıdır"</p>
+            </div>
+            <h1>Yoga ile Hayatınızı Dönüştürün</h1>
+            <p>Beden, zihin ve ruhun uyumlu yolculuğuna hoş geldiniz</p>
+            <a href="#classes" class="cta-button" role="button">Yolculuğa Başla</a>
         </div>
-    </section>
+        <div class="carousel-indicators" role="tablist" aria-label="Hero görselleri">
+            <!-- Carousel indicators buraya JS ile eklenecek -->
+        </div>
+    </header>
 
     <!-- About Section -->
-    <section id="about" class="about">
+    <section id="about" class="about" role="main">
         <div class="about-container">
             <div class="about-content">
                 <h2 id="about-title">Merhaba, Ben Ronit</h2>
@@ -52,65 +227,292 @@
                     <p>Her ders, bedeninizi güçlendirirken zihninizi sakinleştirmek için özenle tasarlanmıştır.</p>
                 </div>
             </div>
-            <div class="about-image" id="profileImageContainer">
+            <div class="about-image" id="profileImageContainer" role="img" aria-label="Ronit profil fotoğrafı">
                 <!-- Profil resmi buraya yüklenecek, yoksa gradient arka plan kalacak -->
             </div>
         </div>
     </section>
 
+    <!-- Our Story Section -->
+    <section id="story" class="story" role="main">
+        <div class="story-container">
+            <div class="story-content">
+                <h2>Hikayemiz</h2>
+                <div class="story-text">
+                    <p class="story-intro">Yoga ile tanışmam 11 yıl önce, hayatımın en zorlu döneminde gerçekleşti.</p>
+                    <p>Stresli iş hayatı ve günlük koşuşturmaca arasında kendimi kaybetmiş hissediyordum. Bir arkadaşımın önerisiyle katıldığım ilk yoga dersinde, nefesime odaklandığım o an, hayatım değişti.</p>
+                    <p>Hindistan'da aldığım 300 saatlik yoga eğitimi sadece teknik bilgi değil, aynı zamanda içsel bir dönüşüm yaşamamı sağladı. O günden beri amacım, bu dönüştürücü gücü sizlerle paylaşmak.</p>
+                    <p>Her öğrencimle kurduğum bağ, onların kendilerini keşfetme yolculuğunda rehber olmak benim için en değerli deneyim.</p>
+                </div>
+                <div class="story-stats">
+                    <div class="stat">
+                        <span class="stat-number">11</span>
+                        <span class="stat-label">Yıl Deneyim</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Mutlu Öğrenci</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">300</span>
+                        <span class="stat-label">Saat Eğitim</span>
+                    </div>
+                </div>
+            </div>
+            <div class="story-image">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=800&fit=crop" alt="Yoga pratiği yapan Ronit" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="community" role="main">
+        <div class="community-container">
+            <h2>Topluluğumuz</h2>
+            <p class="community-intro">Binlerce kişi yoga yolculuğunda bizimle. Siz de bu özel topluluğa katılın.</p>
+            
+            <div class="community-features">
+                <div class="feature">
+                    <div class="feature-icon">🧘‍♀️</div>
+                    <h3>Günlük Pratik</h3>
+                    <p>Her gün yeni pratik önerileri ve rehberlik</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💫</div>
+                    <h3>Kişisel Gelişim</h3>
+                    <p>Kendini keşfetme ve dönüşüm yolculuğu</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Destekleyici Topluluk</h3>
+                    <p>Aynı yolda yürüyen arkadaşlarla bağlantı</p>
+                </div>
+            </div>
+            
+            <div class="community-testimonials">
+                <div class="testimonial">
+                    <p>"Ronit'in dersleriyle hayatım tamamen değişti. Artık daha huzurlu ve dengeli hissediyorum."</p>
+                    <span class="testimonial-author">- Ayşe K.</span>
+                </div>
+                <div class="testimonial">
+                    <p>"11 aydır Ronit ile yoga yapıyorum. Hem fiziksel hem de ruhsal olarak kendimi çok daha iyi hissediyorum."</p>
+                    <span class="testimonial-author">- Mehmet T.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weekly Tips Section -->
+    <section id="newsletter" class="newsletter" role="main">
+        <div class="newsletter-container">
+            <div class="newsletter-content">
+                <h2>Haftalık Yoga İpuçları</h2>
+                <p>Her hafta, yoga pratiğinizi derinleştirmek için özel ipuçları ve rehberlik almak ister misiniz?</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <div class="form-group">
+                        <input type="email" id="newsletterEmail" placeholder="E-posta adresiniz" required>
+                        <button type="submit" class="newsletter-btn">Katıl</button>
+                    </div>
+                    <p class="newsletter-note">Haftada sadece bir e-posta. İstediğiniz zaman çıkabilirsiniz.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <!-- Classes Section -->
-    <section id="classes" class="classes">
+    <section id="classes" class="classes" role="main">
         <div class="classes-container">
             <h2>Derslerimiz</h2>
-            <div id="classesGrid" class="classes-grid">
-                <!-- Dersler buraya yüklenecek -->
+            <div class="classes-filter">
+                <button class="filter-btn active" data-filter="all">Tümü</button>
+                <button class="filter-btn" data-filter="Başlangıç">Başlangıç</button>
+                <button class="filter-btn" data-filter="Orta">Orta</button>
+                <button class="filter-btn" data-filter="İleri">İleri</button>
+            </div>
+            <div id="classesGrid" class="classes-grid" role="grid" aria-label="Yoga dersleri listesi">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Dersler yükleniyor...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section - Yoga'ya dair -->
+    <section id="videos" class="videos" role="main">
+        <div class="videos-container">
+            <h2>Yoga'ya dair</h2>
+            <div id="videosGrid" class="videos-grid" role="grid" aria-label="Yoga videoları">
+                <!-- Videolar buraya yüklenecek -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="blog" role="main">
+        <div class="blog-container">
+            <h2>Blog</h2>
+            <div class="blog-intro">
+                <p>Yoga dünyası hakkında faydalı bilgiler, teknikler ve deneyimler</p>
+            </div>
+            <div id="blogGrid" class="blog-grid" role="grid" aria-label="Blog yazıları">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Blog yazıları yükleniyor...</p>
+                </div>
+            </div>
+            <div class="blog-actions">
+                <button id="loadMoreBlog" class="load-more-btn" style="display: none;">Daha Fazla Yazı</button>
             </div>
         </div>
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
-        <h2>Galeri</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item"></div>
-            <div class="gallery-item"></div>
-            <div class="gallery-item"></div>
-            <div class="gallery-item"></div>
-            <div class="gallery-item"></div>
-            <div class="gallery-item"></div>
-            <div class="gallery-item"></div>
-            <div class="gallery-item"></div>
+    <section id="gallery" class="gallery" role="main">
+        <div class="gallery-container">
+            <h2>Galeri</h2>
+            <div id="galleryGrid" class="gallery-grid" role="grid" aria-label="Yoga stüdyosu fotoğraf galerisi">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Galeri yükleniyor...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section id="reservation" class="reservation" role="main">
+        <div class="reservation-container">
+            <h2>Rezervasyon Yap</h2>
+            <div class="reservation-content">
+                <div class="reservation-info">
+                    <h3>Nasıl Rezervasyon Yapılır?</h3>
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Dersinizi seçin</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Tarih ve saat belirleyin</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Bilgilerinizi doldurun</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-text">Onay bekleyin</div>
+                        </div>
+                    </div>
+                </div>
+                <form class="reservation-form" role="form" aria-label="Rezervasyon formu">
+                    <div class="form-group">
+                        <label for="reservationClass">Ders Seçin</label>
+                        <select id="reservationClass" required>
+                            <option value="">Ders seçin...</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reservationDate">Tarih</label>
+                            <input type="date" id="reservationDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reservationTime">Saat</label>
+                            <input type="time" id="reservationTime" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customerName">Adınız Soyadınız</label>
+                            <input type="text" id="customerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerEmail">E-posta</label>
+                            <input type="email" id="customerEmail" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerPhone">Telefon</label>
+                        <input type="tel" id="customerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reservationNotes">Özel İstekler (İsteğe Bağlı)</label>
+                        <textarea id="reservationNotes" rows="3" placeholder="Özel istekleriniz veya sorularınız varsa buraya yazabilirsiniz..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-button" aria-label="Rezervasyon yap">Rezervasyon Yap</button>
+                </form>
+            </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact" role="main">
         <div class="contact-container">
             <h2>İletişime Geçin</h2>
-            <form class="contact-form">
-                <div class="form-group">
-                    <input type="text" placeholder="Adınız" required>
-                    <input type="email" placeholder="E-posta" required>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-text">
+                            <h3>E-posta</h3>
+                            <p id="contactEmail">info@ronityoga.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-text">
+                            <h3>Telefon</h3>
+                            <p id="contactPhone">+90 555 123 4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">
+                            <h3>Adres</h3>
+                            <p>İstanbul, Türkiye</p>
+                        </div>
+                    </div>
                 </div>
-                <textarea placeholder="Mesajınız" required></textarea>
-                <button type="submit" class="submit-button">Gönder</button>
-            </form>
+                <form class="contact-form" role="form" aria-label="İletişim formu">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contactName">Adınız Soyadınız</label>
+                            <input type="text" id="contactName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmailForm">E-posta</label>
+                            <input type="email" id="contactEmailForm" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactSubject">Konu</label>
+                        <input type="text" id="contactSubject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Mesajınız</label>
+                        <textarea id="contactMessage" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button" aria-label="Mesajı gönder">Mesajı Gönder</button>
+                </form>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="social-links">
-            <a href="#" id="instagram-link" class="instagram">
+    <footer role="contentinfo">
+        <div class="social-links" role="navigation" aria-label="Sosyal medya linkleri">
+            <a href="#" id="instagram-link" class="instagram" aria-label="Instagram sayfamızı ziyaret edin">
                 <img src="uploads/social/instagram.png" alt="Instagram" onerror="this.outerHTML='📷'">
             </a>
-            <a href="#" id="facebook-link" class="facebook">
+            <a href="#" id="facebook-link" class="facebook" aria-label="Facebook sayfamızı ziyaret edin">
                 <img src="uploads/social/facebook.png" alt="Facebook" onerror="this.outerHTML='📘'">
             </a>
-            <a href="#" id="twitter-link" class="twitter">
+            <a href="#" id="twitter-link" class="twitter" aria-label="Twitter sayfamızı takip edin">
                 <img src="uploads/social/twitter.png" alt="Twitter" onerror="this.outerHTML='🐦'">
             </a>
-            <a href="#" id="youtube-link" class="youtube">
+            <a href="#" id="youtube-link" class="youtube" aria-label="YouTube kanalımızı ziyaret edin">
                 <img src="uploads/social/youtube.png" alt="YouTube" onerror="this.outerHTML='▶️'">
             </a>
         </div>
@@ -190,12 +592,102 @@
                         const youtubeLink = document.getElementById('youtube-link');
                         if (youtubeLink) youtubeLink.href = settings.youtube;
                     }
+                    
+                    // Theme colors'ı yükle
+                    loadThemeColors(settings);
                 }
 
             } catch (error) {
                 console.error('Ayarlar yüklenemedi:', error);
             }
+            
+            // Videoları yükle
+            loadVideos();
         });
+        
+        // Theme renklerini yükle ve CSS variable'larını güncelle
+        function loadThemeColors(settings) {
+            const root = document.documentElement;
+            
+            // Admin'den gelen renkleri kullan, yoksa default'ları kullan
+            if (settings.primary_color) {
+                root.style.setProperty('--primary-color', settings.primary_color);
+            }
+            
+            if (settings.primary_dark) {
+                root.style.setProperty('--primary-dark', settings.primary_dark);
+            }
+            
+            if (settings.primary_light) {
+                root.style.setProperty('--primary-light', settings.primary_light);
+            }
+            
+            // Gradient'ı güncelle
+            if (settings.primary_color && settings.primary_dark) {
+                const gradient = `linear-gradient(135deg, ${settings.primary_color} 0%, ${settings.primary_dark} 100%)`;
+                root.style.setProperty('--primary-gradient', gradient);
+            }
+            
+            // Accent color'ı da güncelle
+            if (settings.accent_color) {
+                root.style.setProperty('--accent-gold', settings.accent_color);
+            }
+        }
+        
+        // Videoları yükleme fonksiyonu
+        async function loadVideos() {
+            try {
+                const response = await fetch('api/videos.php');
+                const videos = await response.json();
+                
+                if (Array.isArray(videos)) {
+                    const videosGrid = document.getElementById('videosGrid');
+                    if (videosGrid) {
+                        videosGrid.innerHTML = videos.map(video => `
+                            <div class="video-item">
+                                <div class="video-wrapper">
+                                    <video controls>
+                                        <source src="${video.file_path}" type="video/mp4">
+                                        Tarayıcınız video oynatmayı desteklemiyor.
+                                    </video>
+                                </div>
+                                <div class="video-info">
+                                    <h3>${video.title}</h3>
+                                    <p>${video.description}</p>
+                                    <div class="video-meta">
+                                        <span class="video-target">👥 ${getTargetAudienceText(video.target_audience)}</span>
+                                        <span class="video-difficulty">⚡ ${getDifficultyText(video.difficulty)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                }
+            } catch (error) {
+                console.error('Videolar yüklenemedi:', error);
+            }
+        }
+        
+        // Hedef kitle metni
+        function getTargetAudienceText(target) {
+            switch(target) {
+                case 'beginner': return 'Başlangıç';
+                case 'intermediate': return 'Orta seviye';
+                case 'advanced': return 'İleri seviye';
+                case 'all': return 'Tüm seviyeler';
+                default: return 'Tüm seviyeler';
+            }
+        }
+        
+        // Zorluk seviyesi metni
+        function getDifficultyText(difficulty) {
+            switch(difficulty) {
+                case 'easy': return 'Kolay';
+                case 'medium': return 'Orta';
+                case 'hard': return 'Zor';
+                default: return 'Orta';
+            }
+        }
     </script>
 </body>
 </html>

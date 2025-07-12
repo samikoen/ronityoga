@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Zoom Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .hero {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            background: url('https://images.unsplash.com/photo-1545389336-cf090694435e?w=1600') center/cover;
+            transition: transform 0.1s ease-out;
+            z-index: 1;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 2;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 999;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <div>Scale: <span id="scale-info">1.0</span></div>
+        <div>Progress: <span id="progress-info">0%</span></div>
+    </div>
+    
+    <div class="hero">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>JavaScript Zoom</h1>
+            <p>Background zooms with JavaScript</p>
+        </div>
+    </div>
+    
+    <script>
+        const heroBg = document.getElementById('heroBg');
+        const scaleInfo = document.getElementById('scale-info');
+        const progressInfo = document.getElementById('progress-info');
+        
+        let startTime = Date.now();
+        const duration = 8000; // 8 seconds
+        const maxScale = 1.15;
+        const minScale = 1.0;
+        
+        function animateZoom() {
+            const elapsed = Date.now() - startTime;
+            const progress = (elapsed % duration) / duration;
+            
+            // Zoom out from maxScale to minScale
+            const currentScale = maxScale - (progress * (maxScale - minScale));
+            
+            heroBg.style.transform = `scale(${currentScale})`;
+            
+            // Update debug info
+            scaleInfo.textContent = currentScale.toFixed(3);
+            progressInfo.textContent = (progress * 100).toFixed(1) + '%';
+            
+            requestAnimationFrame(animateZoom);
+        }
+        
+        // Start animation
+        animateZoom();
+        
+        console.log('JavaScript zoom animation started');
+    </script>
+</body>
+</html>
