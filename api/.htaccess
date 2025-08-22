@@ -1,0 +1,70 @@
+# Security Headers
+Header set X-Content-Type-Options "nosniff"
+Header set X-Frame-Options "DENY"
+Header set X-XSS-Protection "1; mode=block"
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'"
+
+# Prevent directory listing
+Options -Indexes
+
+# Deny access to sensitive files
+<FilesMatch "\.(env|sql|log|ini|conf|cfg)$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# Deny access to migration scripts
+<FilesMatch "migrate-.*\.php$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# Deny access to .htaccess itself
+<Files .htaccess>
+    Order deny,allow
+    Deny from all
+</Files>
+
+# Enable CORS for API endpoints (configure as needed)
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization, X-CSRF-Token"
+</IfModule>
+
+# PHP settings (if allowed by host)
+<IfModule mod_php7.c>
+    php_flag display_errors off
+    php_flag log_errors on
+    php_value error_log ../logs/php_errors.log
+    php_flag session.cookie_httponly on
+    php_flag session.cookie_secure on
+    php_flag session.use_only_cookies on
+</IfModule>
+
+# Rewrite rules
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Force HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Block suspicious request methods
+    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK|CONNECT)
+    RewriteRule .* - [F]
+    
+    # Block suspicious user agents
+    RewriteCond %{HTTP_USER_AGENT} (havij|sqlmap|scanbot|nikto|acunetix) [NC]
+    RewriteRule .* - [F]
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/plain
+</IfModule>

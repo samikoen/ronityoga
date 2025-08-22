@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Videolarım - Ronit Yoga</title>
+    <meta name="description" content="YouTube kanalımda paylaştığım yoga dersleri ve meditasyon rehberleri">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css?v=3">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav role="navigation" aria-label="Ana navigasyon">
+        <div class="nav-container">
+            <div class="logo">
+                <img id="siteLogo" src="" alt="Ronit Yoga Studio Logo" style="display: none;">
+                <span id="siteTitle">RONIT YOGA</span>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger" id="hamburger" aria-label="Menüyü aç" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-links" id="navLinks" role="menubar">
+                <!-- Navigation will be dynamically populated -->
+            </ul>
+        </div>
+    </nav>
+
+    <!-- YouTube Videos Section -->
+    <section class="youtube-videos" role="main">
+        <div class="youtube-videos-container">
+            <h1>YouTube Videolarım</h1>
+            <p class="youtube-videos-description">YouTube kanalımda paylaştığım yoga dersleri ve meditasyon rehberlerim</p>
+            
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <!-- Tümü seçeneği tek satırda -->
+                <div class="category-row full-width">
+                    <button class="category-btn active" onclick="filterYouTubeVideos('all')">Tümü</button>
+                </div>
+                <!-- Diğer kategoriler 2'li satırlar halinde -->
+                <div class="category-row">
+                    <button class="category-btn" onclick="filterYouTubeVideos('beginner')">Başlangıç seviyesi</button>
+                    <button class="category-btn" onclick="filterYouTubeVideos('intermediate')">Orta seviye</button>
+                </div>
+                <div class="category-row">
+                    <button class="category-btn" onclick="filterYouTubeVideos('advanced')">İleri seviye</button>
+                    <button class="category-btn" onclick="filterYouTubeVideos('yoga_related')">Yoga'ya dair</button>
+                </div>
+                <div class="category-row">
+                    <button class="category-btn" onclick="filterYouTubeVideos('breathing')">Nefes çalışmaları</button>
+                    <button class="category-btn" onclick="filterYouTubeVideos('stretching')">Esneme</button>
+                </div>
+                <div class="category-row">
+                    <button class="category-btn" onclick="filterYouTubeVideos('mini_flows')">Mini yoga flows</button>
+                    <button class="category-btn" onclick="filterYouTubeVideos('pose_tutorials')">Poz anlatımları</button>
+                </div>
+            </div>
+            
+            <div id="youtubeVideosGrid" class="youtube-videos-grid" role="grid" aria-label="YouTube videoları">
+                <!-- YouTube videos will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <a href="#" id="instagram-link" class="social-link instagram" aria-label="Instagram sayfamızı ziyaret edin">
+            📸
+        </a>
+        <a href="#" id="facebook-link" class="social-link facebook" aria-label="Facebook sayfamızı ziyaret edin">
+            <img src="uploads/social/facebook.png" alt="Facebook" onerror="this.outerHTML='📘'">
+        </a>
+        <a href="#" id="twitter-link" class="social-link twitter" aria-label="Twitter sayfamızı takip edin">
+            <img src="uploads/social/twitter.png" alt="Twitter" onerror="this.outerHTML='🐦'">
+        </a>
+        <a href="#" id="youtube-link" class="social-link youtube" aria-label="YouTube kanalımızı ziyaret edin">
+            <img src="uploads/social/youtube.png" alt="YouTube" onerror="this.outerHTML='▶️'">
+        </a>
+        <a href="#" id="email-link" class="contact-link email" aria-label="E-posta gönder">
+            📧 <span id="footer-email">info@ronityoga.com</span>
+        </a>
+        <a href="#" id="phone-link" class="contact-link phone" aria-label="Telefon et">
+            📞 <span id="footer-phone">+90 555 123 45 67</span>
+        </a>
+        <span>&copy; 2025 Ronit Yoga. Tüm hakları saklıdır.</span>
+    </footer>
+
+    <script src="assets/js/main.js?v=3"></script>
+</body>
+</html>

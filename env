@@ -1,0 +1,20 @@
+  # Database Configuration - ÇALIŞAN AYARLAR
+  DB_HOST=localhost
+  DB_NAME=ronityog_db
+  DB_USER=ronityog_ronit
+  DB_PASS=alenroy11.
+
+  # Application Settings
+  APP_ENV=production
+  APP_DEBUG=false
+  APP_URL=https://ronityoga.com.tr
+
+  # Session Configuration
+  SESSION_LIFETIME=120
+  SESSION_SECURE=true
+  SESSION_HTTPONLY=true
+
+  # Security
+  CSRF_TOKEN_LIFETIME=3600
+  RATE_LIMIT_ATTEMPTS=5
+  RATE_LIMIT_DECAY_MINUTES=15

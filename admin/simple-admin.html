@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ronit Yoga - Admin Panel</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .header {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: white;
+            font-weight: 300;
+        }
+        
+        .user-info {
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .dashboard {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .welcome {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .welcome h2 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .admin-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+        
+        .session-info {
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>RONIT YOGA - Admin Panel</h1>
+        <div class="user-info">
+            <span id="username">Admin</span>
+            <a href="../api/logout.php" class="logout-btn">Çıkış</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="dashboard">
+            <div class="welcome">
+                <h2>Hoş Geldiniz!</h2>
+                <p>Admin panel başarıyla yüklendi ve çalışıyor.</p>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>✅</h3>
+                    <p>Sistem Aktif</p>
+                </div>
+                <div class="stat-card">
+                    <h3>🔐</h3>
+                    <p>Güvenli Giriş</p>
+                </div>
+                <div class="stat-card">
+                    <h3>🎯</h3>
+                    <p>Admin Panel</p>
+                </div>
+                <div class="stat-card">
+                    <h3>⚡</h3>
+                    <p>Hızlı Erişim</p>
+                </div>
+            </div>
+            
+            <div class="admin-info">
+                <h3>Sistem Bilgileri</h3>
+                <div class="session-info">
+                    <p><strong>Login durumu:</strong> Başarılı</p>
+                    <p><strong>Session aktif:</strong> <span id="sessionStatus">Kontrol ediliyor...</span></p>
+                    <p><strong>Admin paneli:</strong> Çalışıyor</p>
+                    <p><strong>Güvenlik:</strong> ✅ Aktif</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        console.log('🎯 Simple admin panel loaded successfully');
+        
+        // Session durumunu kontrol et
+        async function checkSessionStatus() {
+            try {
+                const response = await fetch('../api/simple-session-check.php', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const text = await response.text();
+                    const statusElement = document.getElementById('sessionStatus');
+                    
+                    if (text.trim() === 'LOGGED_IN') {
+                        statusElement.textContent = '✅ Aktif';
+                        statusElement.style.color = 'green';
+                    } else {
+                        statusElement.textContent = '❌ Pasif';
+                        statusElement.style.color = 'red';
+                    }
+                }
+            } catch (error) {
+                console.log('Session check error:', error);
+                document.getElementById('sessionStatus').textContent = '⚠️ Hata';
+            }
+        }
+        
+        // Sayfa yüklendiğinde session kontrol et
+        document.addEventListener('DOMContentLoaded', function() {
+            checkSessionStatus();
+        });
+    </script>
+</body>
+</html>
